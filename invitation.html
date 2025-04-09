@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>開幕禮邀請回覆</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0b0b0b;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .invitation-card {
+      position: relative;
+      background: #111;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(255, 0, 70, 0.8);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: #ff0044;
+    }
+
+    .details {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 1rem 0;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin: 1rem 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .cta-button {
+      padding: 0.6rem 1.2rem;
+      background-color: #ff0044;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      flex: 1 1 45%;
+      transition: background 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #ff3366;
+    }
+
+    .decline-button {
+      background-color: #333;
+    }
+
+    .decline-button:hover {
+      background-color: #555;
+    }
+
+    #thankYouMessage {
+      display: none;
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: #00ff88;
+    }
+
+    iframe {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="invitation-card">
+    <h1>開幕禮邀請回覆</h1>
+    <div class="details">
+      <strong>賽馬會廿一世紀綜合青少年服務計劃</strong><br>
+      📅 2025年5月25日（星期日）<br>
+      🕒 下午3:00 - 6:00<br>
+      📍 青年匯禮堂（九龍）<br><br>
+      請填寫您的姓名並選擇是否出席活動。
+    </div>
+
+    <form id="rsvpForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfBFUqU4v8nbdymUxysuBFg4gkV41zqHPXUIeKMlWWWNzxAlQ/formResponse" method="POST" target="hidden_iframe" onsubmit="handleSubmit(event)">
+      <input type="text" name="entry.530470980" id="name" placeholder="請輸入您的姓名" required />
+      <input type="hidden" id="attendanceInput" name="entry.65923859" value="" />
+      <div class="button-group">
+        <button type="submit" class="cta-button" onclick="setAttendance('確認出席')">確認出席</button>
+        <button type="submit" class="cta-button decline-button" onclick="setAttendance('未能出席')">不克出席</button>
+      </div>
+    </form>
+
+    <div id="thankYouMessage">感謝您的回覆，我們已經收到您的意願 🙏</div>
+
+    <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
+  </div>
+
+  <script>
+    function setAttendance(status) {
+      document.getElementById('attendanceInput').value = status;
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault(); // Prevent navigation
+      const form = document.getElementById('rsvpForm');
+      form.submit(); // Submit to iframe
+      form.style.display = 'none';
+      document.getElementById('thankYouMessage').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
